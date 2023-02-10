@@ -1,0 +1,13 @@
+:root {
+    --principle-blue: #0080FF;
+    --dark-blue: #001326;
+    --light-blue: #B3D9FF;
+    --principle-orange: #F8941F;
+    --dark-orange: #1F1204;
+    --light-orange: #F7E6D2;
+}
+
+body {
+    background-color: var(--dark-blue);
+    color: var(--light-blue);
+}
