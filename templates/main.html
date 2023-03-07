@@ -1,16 +1,25 @@
+{% extends 'blocks/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/main.css' %}">
+{% block title %}Pyrismus Main{% endblock title %}
+{% block css %}
+<link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/login.css' %}">
+<style>
+    html, body {
+        overflow: hidden;
+    }
     
-
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
-<script src="{% static 'js/main.js' %}"></script>
-</html>
+    #logo_background {
+        max-height: fit-content;
+        position: relative;
+    }
+    #background {
+        height: 100%;
+    }
+</style>
+{% endblock css %}
+{% block content %}
+<div id="background">
+    <img src="{% static 'pyrismus.svg' %}" id="logo_background"/>
+</div>
+{% include "includes/login.html" %}
+{% endblock content %}
