@@ -1,0 +1,57 @@
+{% extends 'blocks/base.html' %}
+{% load static %}
+{% block title %}Pyrismus{% endblock title %}
+{% block css %}
+<link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/login.css' %}">
+<style>
+    html, body {
+        overflow: hidden;
+    }
+    
+    #logo_background {
+        max-height: fit-content;
+        position: relative;
+        width: fit-content;
+    }
+    #background {
+        height: 100%;
+
+    }
+</style>
+{% endblock css %}
+{% block content %}
+<div id="background">
+    <img src="{% static 'pyrismus.svg' %}" id="logo_background"/>
+</div>
+<div id="login">
+    <form method="POST" action={% url 'register_user' %}>
+        
+        <input type="text" id="first_name" placeholder="First Name" name="first_name" required>
+        <input type="text" id="last_name" placeholder="Last Name" name="last_name" required>
+
+        <input type="text" id="username" placeholder="Email" name="username" required>
+    
+        <input type="password" id="password" placeholder="Password" name="password" required>
+        <div style="display: flex">
+        <input type="checkbox" onclick="showPassword()"><p>Show Password</p>
+        </div>
+    
+        <button>Register</button>
+        {% csrf_token %}
+       
+    </form>
+</div>
+
+{% endblock content %}
+{% block js %}
+<script>
+    function showPassword() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+</script>
+{% endblock js %}

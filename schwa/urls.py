@@ -21,5 +21,6 @@ from main.views import main_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_view, name='main')
+    path('', main_view, name='main'),
+    path('user_auth/', include('user_auth.urls'))
 ]
