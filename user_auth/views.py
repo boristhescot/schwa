@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User
 
@@ -17,4 +17,4 @@ def register_user(request):
     first_name = body['first_name']
     last_name = body['last_name']
     User.objects.create_user(email=email, username=email, password=password, first_name=first_name, last_name=last_name)
-    return render(request, 'main.html')
+    return redirect('/')
