@@ -1,6 +1,9 @@
 <div id="login">
 <form>
-    
+
+    {% if user_exists %}
+        <p class="warning">Account with email already exists</p>
+    {% endif %}
     <label for="username">Email</label>
     <input type="text" id="username" name="username">
 

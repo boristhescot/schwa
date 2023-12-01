@@ -23,5 +23,5 @@
 <div id="background">
     <img src="{% static 'pyrismus.svg' %}" id="logo_background"/>
 </div>
-{% include "includes/login.html" %}
+{% include "includes/login.html" with user_exists=user_exists %}
 {% endblock content %}

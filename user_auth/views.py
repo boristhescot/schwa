@@ -16,5 +16,9 @@ def register_user(request):
     password = body['password']
     first_name = body['first_name']
     last_name = body['last_name']
+    if User.objects.filter(email=email):
+        request.session['user_exists'] = True
+        return redirect('/')
+
     User.objects.create_user(email=email, username=email, password=password, first_name=first_name, last_name=last_name)
     return redirect('/')

@@ -24,4 +24,13 @@ html, body {
     
 }
 
+.warning {
+    text-align: center;
+    color: var(--principle-orange) !important;
+    border: 2px solid var(--principle-orange) !important;
+    margin: 0 15%;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
 
