@@ -22,3 +22,7 @@ def register_user(request):
 
     User.objects.create_user(email=email, username=email, password=password, first_name=first_name, last_name=last_name)
     return redirect('/')
+
+def authenticate_user(request):
+    print(9999)
+    return redirect('/profile/')

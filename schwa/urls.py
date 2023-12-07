@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.urls import path, include
 from main.views import main_view
+from userhome.views import userhome
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('profile/', userhome, name='userhome'),
+    path('user_auth/', include('user_auth.urls')),
     path('', main_view, name='main'),
-    path('user_auth/', include('user_auth.urls'))
 ]

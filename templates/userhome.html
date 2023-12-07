@@ -1,0 +1,26 @@
+{% extends 'blocks/base.html' %}
+{% load static %}
+{% block title %}Pyrismus{% endblock title %}
+{% block css %}
+<link rel='stylesheet' type='text/css' media='screen' href="{% static 'css/login.css' %}">
+<style>
+    html, body {
+        overflow: hidden;
+    }
+
+    #logo_background {
+        max-height: fit-content;
+        position: relative;
+        width: fit-content;
+    }
+    #background {
+        height: 100%;
+
+    }
+</style>
+{% endblock css %}
+{% block content %}
+<div>
+    welcome, loser
+</div>
+{% endblock content %}

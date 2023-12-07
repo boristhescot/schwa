@@ -1,5 +1,5 @@
 <div id="login">
-<form>
+<form method="post">
 
     {% if user_exists %}
         <p class="warning">Account with email already exists</p>
@@ -10,8 +10,8 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password">
 
-    <button>Log In</button>
-   
+    <button formaction={% url 'authenticate_user' %}>Log In</button>
+   {% csrf_token %}
 </form>
 <div style="margin-top: 1em; text-align: center">
     <span>New User? <a href={% url 'new_user' %}>Sign Up</a>!</span>
