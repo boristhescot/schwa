@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def new_user(request):
@@ -24,5 +25,15 @@ def register_user(request):
     return redirect('/')
 
 def authenticate_user(request):
-    print(9999)
-    return redirect('/profile/')
+    if not request.method == 'POST':
+        return HttpResponseNotFound()
+    body = request.POST
+    username = body['username']
+    password = body['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('/profile/')
+    else:
+        new_user(request)
+
