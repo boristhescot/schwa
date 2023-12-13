@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+ACCOUNT_EXISTS_MSG = 'Account with email already exists'
 # Application definition
 
 INSTALLED_APPS = [
