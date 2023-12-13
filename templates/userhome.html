@@ -22,5 +22,6 @@
 {% block content %}
 <div>
     welcome, {{ username }}
+    <a href={% url 'logout' %}>logout</a>
 </div>
 {% endblock content %}

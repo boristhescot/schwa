@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
-# Create your views here.
+
 def new_user(request):
     return render(request, 'auth/new_user.html')
 
@@ -36,4 +36,8 @@ def authenticate_user(request):
         return redirect('/profile/')
     else:
         new_user(request)
+def user_logout(request):
+
+    logout(request)
+    return redirect('/')
 
