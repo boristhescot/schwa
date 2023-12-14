@@ -8,20 +8,24 @@
         overflow: hidden;
     }
 
-    #logo_background {
-        max-height: fit-content;
-        position: relative;
-        width: fit-content;
+    .app_icon {
+        height: 5rem
     }
-    #background {
-        height: 100%;
 
-    }
 </style>
 {% endblock css %}
 {% block content %}
 <div>
-    welcome, {{ username }}
-    <a href={% url 'logout' %}>logout</a>
+    <div class="dropdown">
+        <div><img src="{% static 'icons/person-icon.svg' %}" class="person_icon"/></div>
+        <div class="dropdown-content">
+            <p>{{ username }}</p>
+            <p><a href={% url 'logout' %}>logout</a></p>
+        </div>
+    </div>
+    <div class="app_icon_div">
+        <div><img src="{% static 'icons/schwa-icon.svg' %}" class="app_icon"/></div>
+        <div>Schwa</div>
+    </div>
 </div>
 {% endblock content %}
