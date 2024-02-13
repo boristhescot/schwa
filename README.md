@@ -6,9 +6,6 @@ Web based phonetic analysis tool
 
 * front end password validation (future when I care about it)
 
-### user home
-* app grid
-
 ### sound
 Record sound
 Save sound

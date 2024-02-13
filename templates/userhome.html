@@ -9,23 +9,60 @@
     }
 
     .app_icon {
-        height: 5rem
+        height: 5rem;
+        padding: .5rem;
+        border: solid 5px var(--principle-orange);
+        border-radius: 1rem;
+        cursor: pointer;
+    }
+    .app_icon:hover {
+        box-shadow:
+                inset 5px 5px 10px 0 var(--principle-blue),
+                inset -5px -5px 10px 0 var(--principle-blue),
+                inset 5px -5px 10px 0 var(--principle-blue),
+                inset -5px 5px 10px 0 var(--principle-blue),
+                inset 2px 2px 2px 0 var(--light-blue),
+                inset -2px -2px 2px 0 var(--light-blue),
+                inset 2px -2px 2px 0 var(--light-blue),
+                inset -2px 2px 2px 0 var(--light-blue)
+    ;
+        {#background-color: var(--principle-blue);#}
     }
 
+    .all_apps {
+        display: grid;
+        margin-top: 2rem;
+        width: 100%;
+        padding: 1rem
+    }
+
+    #profile {
+        position: absolute;
+        right: 1rem;
+        top: 1rem
+    }
+
+    .app_icon_div {
+        text-align: center;
+    }
 </style>
 {% endblock css %}
 {% block content %}
 <div>
-    <div class="dropdown">
+    <div class="dropdown" id="profile">
         <div><img src="{% static 'icons/person-icon.svg' %}" class="person_icon"/></div>
         <div class="dropdown-content">
             <p>{{ username }}</p>
             <p><a href={% url 'logout' %}>logout</a></p>
         </div>
     </div>
-    <div class="app_icon_div">
-        <div><img src="{% static 'icons/schwa-icon.svg' %}" class="app_icon"/></div>
-        <div>Schwa</div>
+    <div class="all_apps">
+        <div class="app_icon_div">
+
+            <div><img src="{% static 'icons/schwa-icon.svg' %}" class="app_icon" onclick="location.href={% url 'schwa_home' %}"></div>
+            <div>Schwa</div>
+
+        </div>
     </div>
 </div>
 {% endblock content %}

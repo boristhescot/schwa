@@ -26,5 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/', userhome, name='userhome'),
     path('user_auth/', include('user_auth.urls')),
+    path('schwa/', include('schwa_app.urls')),
     path('', main_view, name='main'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
