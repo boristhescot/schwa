@@ -49,15 +49,9 @@
 {% endblock css %}
 {% block content %}
 <div>
-    <div class="dropdown" id="profile">
-        <div><img src="{% static 'icons/person-icon.svg' %}" class="person_icon"/></div>
-        <div class="dropdown-content">
-            <p>{{ username }}</p>
-            <p><a href={% url 'logout' %}>logout</a></p>
-        </div>
-    </div>
+    {% include "includes/logout.html" with id='profile' username=username %}
     <div class="all_apps">
-        <div class="app_icon_div">
+        <div class="app_icon_div" id="schwa">
 
             <div><img src="{% static 'icons/schwa-icon.svg' %}" class="app_icon" onclick="location.href={% url 'schwa_home' %}"></div>
             <div>Schwa</div>

@@ -1,1 +1,39 @@
-<h1>Schwa
+{% extends 'blocks/base.html' %}
+{% load static %}
+{% block title %}Pyrismus{% endblock title %}
+{% block css %}
+<style>
+
+#profile {
+    position: absolute;
+    right: 1rem;
+    top: 1rem
+}
+
+.audioControl {
+    cursor: pointer;
+    width: fit-content;
+}
+
+</style>
+{% endblock css %}
+{% block content %}
+    {% include "includes/logout.html" with id='profile' username=username %}
+    <h1>Schwa</h1>
+    <div id="audioControls">
+        <div class="audioControl" id="record">RECORD</div>
+        <div class="audioControl" id="play">PLAY</div>
+        <div class="audioControl" id="stop">STOP</div>
+    </div>
+{% endblock content %}
+{% block js %}
+<script>
+const record = document.querySelector("#record");
+const stop = document.querySelector("#stop");
+const play = document.querySelector("#play");
+
+record.onclick = function () {
+    console.log('recording')
+}
+</script>
+{% endblock js %}

@@ -1,0 +1,8 @@
+{% load static %}
+<div class="dropdown" id={{ id }}>
+    <div><img src="{% static 'icons/person-icon.svg' %}" class="person_icon"/></div>
+    <div class="dropdown-content">
+        <p>{{ username }}</p>
+        <p><a href={% url 'logout' %}>logout</a></p>
+    </div>
+</div>
