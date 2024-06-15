@@ -7,9 +7,9 @@ Web based phonetic analysis tool
 * front end password validation (future when I care about it)
 
 ### sound
-Record sound
+
 Save sound
-Play sound
+Make sound recorder pretty
 Show wave function
 Show spectrogram
 Share sound
@@ -17,7 +17,6 @@ Add time breaks
 Add annotation
 Play time segment
 Adjust frequency min/max
-Add std measurements
+Formants
 Share annotation
-ML model training
-
+Add std measurements

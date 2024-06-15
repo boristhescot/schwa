@@ -51,9 +51,9 @@
 <div>
     {% include "includes/logout.html" with id='profile' username=username %}
     <div class="all_apps">
-        <div class="app_icon_div" id="schwa">
+        <div class="app_icon_div">
 
-            <div><img src="{% static 'icons/schwa-icon.svg' %}" class="app_icon" onclick="location.href={% url 'schwa_home' %}"></div>
+            <div><img src="{% static 'icons/schwa-icon.svg' %}" class="app_icon"  id="schwa_icon" onclick="location.href={% url 'schwa_home' %}"></div>
             <div>Schwa</div>
 
         </div>

@@ -9,15 +9,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.safari.webdriver import WebDriver
 
 
-
 class LoginInTest(StaticLiveServerTestCase):
     email = 'dave@dave.com'
     password = 'davedavedave'
     first_name = 'dave'
     last_name = 'dave'
+
     @classmethod
     def setUpClass(cls):
-
         super().setUpClass()
         cls.driver = WebDriver()
         cls.driver.implicitly_wait(10)
@@ -41,34 +40,28 @@ class LoginInTest(StaticLiveServerTestCase):
         pw.send_keys(self.password)
         pw.send_keys(Keys.ENTER)
 
-    def test_load(self):
-        self.driver.get(f'{self.live_server_url}')
-        print(self.driver.title)
-        self.assertEqual(self.driver.title, 'Pyrismus')
+    def print_source(self):
+        elem = self.driver.find_element("xpath", "//*")
+        source_code = elem.get_attribute("outerHTML")
+        print(source_code)
 
-    def test_create_new_user(self):
-
-        self.driver.get(f'{self.live_server_url}')
-        self.driver.find_element(By.LINK_TEXT, "Sign Up").click()
-        self.assertEqual(self.driver.current_url, f'{self.live_server_url}/user_auth/new_user/')
-        self.driver.find_element(By.ID, "first_name").send_keys(self.first_name)
-        self.driver.find_element(By.ID, "last_name").send_keys(self.last_name)
-        self.driver.find_element(By.ID, "username").send_keys(self.email)
-        self.driver.find_element(By.ID, "password").send_keys(self.password)
-        self.driver.find_element(By.ID, "register").click()
-        time.sleep(.5)
-        self.assertEqual(self.driver.current_url, f'{self.live_server_url}/')
-
-    def test_login(self):
-
-        self.login()
-        time.sleep(.5)
-        self.assertEqual(self.driver.current_url, f'{self.live_server_url}/profile/')
 
     def test_access_schwa(self):
-
         self.login()
+        time.sleep(.5)
         self.driver.get(f'{self.live_server_url}/profile/')
-        self.driver.find_element(By.ID, 'schwa').click()
-        time.sleep(5)
+
+        time.sleep(.5)
+        icon = self.driver.find_element(By.ID, 'schwa_icon')
+        icon.click()
+        time.sleep(.5)
         self.assertEqual(self.driver.current_url, f'{self.live_server_url}/schwa/')
+
+    def test_pyrismus_navs_back(self):
+        self.login()
+        time.sleep(.5)
+        self.driver.get(f'{self.live_server_url}/schwa/')
+        time.sleep(.5)
+        self.driver.find_element(By.ID, 'pyrismus_icon').click()
+        time.sleep(.5)
+        self.assertEqual(self.driver.current_url, f'{self.live_server_url}/profile/')

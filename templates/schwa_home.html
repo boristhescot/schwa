@@ -3,6 +3,57 @@
 {% block title %}Pyrismus{% endblock title %}
 {% block css %}
 <style>
+#recordForm {
+    display: grid;
+    grid-column: 1;
+    grid-row: 3
+}
+#recordButton {
+    grid-column: 1;
+    grid-row: 1;
+    background: #FF4B0F;
+    width: 33%
+}
+
+#recorded_sound {
+    width: 25%
+}
+
+#file_name {
+    display: grid;
+}
+
+#wavSuffix {
+    grid-column: 2;
+}
+#fname {
+    grid-column: 1;
+    display:inline-block;
+    padding:15px 10px;
+    line-height:140%;
+}
+.blinkingButton {
+    border: 1px solid #FFF9F7;
+    padding: 8px;
+    border-radius: 30px;
+    font-size: 12pt
+    background:#3E373C;
+    text-align: center;
+    -webkit-animation: blinky 1.5s infinite;  /* Safari 4+ */
+    -moz-animation: blinky 1.5s infinite;  /* Fx 5+ */
+    -o-animation: blinky 1.5s infinite;  /* Opera 12+ */
+    animation: blinky 1.5s infinite;  /* IE 10+, Fx 29+ */
+    animation-timing-function: linear;
+}
+
+@-webkit-keyframes blinky {
+  0%, 25% {
+    background-color: #FF4B0F;
+  }
+  50%, 75% {
+    background-color: #804437;
+  }
+}
 
 #profile {
     position: absolute;
@@ -15,25 +66,142 @@
     width: fit-content;
 }
 
+#appHeader {
+    margin: 1rem;
+    height: 5rem;
+    width: 25%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 1rem;
+}
+
+#appHeader img {
+    height: 5rem;
+
+}
+
+#audioControls {
+    border: 1px solid var(--light-blue);
+    text-align: center;
+    margin: 1rem;
+}
+
+#schwaContent {
+    display: grid;
+    grid-template-columns: 25% auto;
+}
 </style>
 {% endblock css %}
 {% block content %}
     {% include "includes/logout.html" with id='profile' username=username %}
-    <h1>Schwa</h1>
-    <div id="audioControls">
-        <div class="audioControl" id="record">RECORD</div>
-        <div class="audioControl" id="play">PLAY</div>
-        <div class="audioControl" id="stop">STOP</div>
+    <div id="appHeader">
+    <img id="pyrismus_icon" src="{% static 'icons/pyrismus.svg' %}" onclick="location.href = '/'"/>
+    <img src="{% static 'icons/schwa-icon.svg' %}" />
     </div>
+    <div id="schwaContent">
+        <div id="audioControls">
+            <h1>Sounds</h1>
+            <div class="audioControl" id="record" style="font-size: 24pt">+</div>
+        </div>
+    <div>
+        <h1>Record</h1>
+<form id="recordForm">
+    <a class="button" id="recordButton" onmouseup="record(this)">Record</a>
+    <div id="recorded_sound" style="display: none">
+        <audio id="player" controls></audio>
+        <div id="file_name">
+            <div id="fname">
+                <input type="text" name="file_name" id="fileNameField" placeholder="file name">
+            </div>
+        </div>
+        <a class="button" id="saveButton" onmouseup="saveFile()">Save</a>
+    </div>
+</form>
+<p id="formants">f</p>
+    </div>
+    </div>
+
 {% endblock content %}
 {% block js %}
 <script>
-const record = document.querySelector("#record");
-const stop = document.querySelector("#stop");
-const play = document.querySelector("#play");
 
-record.onclick = function () {
-    console.log('recording')
-}
+    var mediaRecorder = null;
+    var audioStream = null;
+    var chunks = [];
+    let player = document.getElementById('player');
+    var audioBlob = []
+
+
+    function record(element) {
+        if (element.className === "button") {
+            element.className = "blinkingButton";
+            element.innerHTML = "Please Wait"
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+            .then(startRecording)
+
+        } else {
+            element.className = "button";
+            stopRecording();
+            element.innerHTML = "Record";
+        }
+    }
+
+    function startRecording(stream) {
+        audioStream = stream;
+        const options = {'type' : 'audio/flac'};
+        const mime = ['audio/flac', 'audio/wav', 'audio/mpeg', 'audio/webm', 'audio/ogg', 'audio/mp4'].filter(MediaRecorder.isTypeSupported)[0];
+        console.log('mime', mime)
+        mediaRecorder = new MediaRecorder(audioStream, {
+            mimeType: mime
+        });
+        // mediaRecorder = new MediaRecorder(audioStream, options);
+        mediaRecorder.addEventListener('dataavailable', function(e) {
+            if (e.data.size > 0) {
+                console.log('chunks pushed', e.data);
+                chunks.push(e.data);
+
+                var blob = new Blob(chunks, { 'type' : 'audio/flac' });
+                audioBlob.push(blob);
+                var audioURL = URL.createObjectURL(blob);
+                player.src = audioURL;
+            }
+        })
+        mediaRecorder.onstart = function(e) {
+            console.log('onstart');
+            document.getElementById('recordButton').innerHTML = "Stop"
+        }
+
+        mediaRecorder.start();
+
+    }
+
+    function stopRecording() {
+        mediaRecorder.stop();
+        audioStream.getTracks()[0].stop();
+        audio_controls = document.getElementById('recorded_sound');
+        audio_controls.style.display = 'initial';
+
+    }
+
+
+
+    function getCookie(name){
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (i=0; i<cookies.length; i++) {
+                var cookie = cookies[i];
+                if (cookie.substring(0, name.length + 1) == (name+'=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+
+
 </script>
+
 {% endblock js %}
