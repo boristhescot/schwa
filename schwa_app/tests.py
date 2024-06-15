@@ -17,14 +17,14 @@ class SchwaHome(TestCase):
     def test_unauthenticate_user_reroutes_home(self):
         client = Client()
         client.logout()
-        response = client.get('/schwa/')
+        response = client.get('/language_academy/')
 
         self.assertEqual('/', response.url)
 
     def test_authenticated_user_can_access(self):
         client = Client()
         client.login(username=self.email, password=self.password)
-        response = client.get('/schwa/')
+        response = client.get('/language_academy/')
 
         self.assertEqual(response.resolver_match.func, schwa_views.schwa_home)
 

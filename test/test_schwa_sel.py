@@ -55,12 +55,12 @@ class LoginInTest(StaticLiveServerTestCase):
         icon = self.driver.find_element(By.ID, 'schwa_icon')
         icon.click()
         time.sleep(.5)
-        self.assertEqual(self.driver.current_url, f'{self.live_server_url}/schwa/')
+        self.assertEqual(self.driver.current_url, f'{self.live_server_url}/language_academy/')
 
     def test_pyrismus_navs_back(self):
         self.login()
         time.sleep(.5)
-        self.driver.get(f'{self.live_server_url}/schwa/')
+        self.driver.get(f'{self.live_server_url}/language_academy/')
         time.sleep(.5)
         self.driver.find_element(By.ID, 'pyrismus_icon').click()
         time.sleep(.5)
