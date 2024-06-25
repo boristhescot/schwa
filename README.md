@@ -8,8 +8,8 @@ Web based phonetic analysis tool
 
 ### sound
 
-* Save sound
 * Make sound recorder pretty
+
 * Show wave function
 * Show spectrogram
 * Share sound
@@ -26,6 +26,8 @@ Web based phonetic analysis tool
 * Automate transcription
 * Non-roman transcription
 * User correction of automation
+* Warn when creating duplicate file
+* Option to show previous annotations from previous file entry
 
 ### corpus
 * import doc

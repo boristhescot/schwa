@@ -101,6 +101,9 @@
     <div id="schwaContent">
         <div id="audioControls">
             <h1>Sounds</h1>
+            {% for sound in sounds %}
+                {{ sound.file_name }}
+            {% endfor %}
             <div class="audioControl" id="record" style="font-size: 24pt">+</div>
         </div>
     <div>
@@ -184,6 +187,35 @@
     }
 
 
+    function saveFile() {
+        var recordForm = document.getElementById('recordForm');
+        var loader = document.createElement("div");
+        loader.className = 'loader';
+        recordForm.appendChild(loader);
+        console.log('going');
+        const userfileNameField = document.getElementById('fileNameField').value;
+        const blob = audioBlob[0];
+
+        // const formData = new FormData();
+        let fd = new FormData();
+        fd.append("audioRecording", blob);
+        fd.append('file_name', userfileNameField);
+        fetch("{% url 'save_recording' %}", {
+            method:"POST",
+            body:fd,
+            headers:{
+                "X-CSRFToken": getCookie("csrftoken"),
+                'contentType': "multipart/form-data"
+            }
+        })
+        .then(response => response.ok)
+        .then(res => {
+            console.log('Success');
+            window.location.reload();
+        })
+        .catch(err => console.error(err));
+
+    }
 
     function getCookie(name){
         var cookieValue = null;

@@ -20,5 +20,5 @@ class SchwaTestCase(TestCase):
     def test_access(self):
         client = Client()
         client.login(username=self.email, password=self.password)
-        response = client.get('/language_academy/')
+        response = client.get('/schwa/')
         self.assertEqual(response.resolver_match.func, schwa_views.schwa_home)
